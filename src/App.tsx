@@ -20,6 +20,7 @@ import Diagnosis from './pages/Diagnosis';
 import Remedies from './pages/Remedies';
 import { NextUIProvider } from '@nextui-org/react';
 import ChatBot from './pages/ChatBot';
+import Reviews from './pages/Reviews';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -139,20 +140,11 @@ function App() {
             }
           />
           <Route
-            path="/ui/alerts"
+            path="/reviews"
             element={
               <>
-                <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                <Alerts />
-              </>
-            }
-          />
-          <Route
-            path="/ui/buttons"
-            element={
-              <>
-                <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                <Buttons />
+                <PageTitle title="Reviews" />
+                <Reviews />
               </>
             }
           />

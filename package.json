@@ -19,6 +19,7 @@
     "@nextui-org/react": "^2.4.6",
     "apexcharts": "^3.41.0",
     "flatpickr": "^4.6.13",
+    "framer-motion": "^11.5.4",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
     "marked": "^14.1.1",

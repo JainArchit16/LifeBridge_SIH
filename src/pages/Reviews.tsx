@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Input,
@@ -7,11 +7,15 @@ import {
   CardBody,
   CardHeader,
 } from '@nextui-org/react';
+// import { addDoc, collection } from 'firebase/firestore';
+// import { getAuth } from 'firebase/auth'; // Firebase Authentication
+// import { db } from './firebase'; // Firestore instance
 
 interface Review {
   title: string;
   content: string;
   rating: number;
+  userId?: string; // Include user ID in the review structure
 }
 
 const StarRating = ({
@@ -47,6 +51,9 @@ const Reviews = () => {
     rating: 0,
   });
 
+  // const auth = getAuth(); // Firebase Authentication instance
+  // const currentUser = auth.currentUser; // Get the current logged-in user
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -58,13 +65,29 @@ const Reviews = () => {
     setReview((prev) => ({ ...prev, rating: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitted review:', review);
+
+    // if (!currentUser) {
+    //   console.error('User not logged in');
+    //   return;
+    // }
+
+    try {
+      const reviewWithUser = {
+        ...review,
+        // userId: currentUser.uid,
+      };
+
+      // await addDoc(collection(db, 'reviews'), reviewWithUser);
+      console.log('Review submitted:', reviewWithUser);
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
   };
 
   return (
-    <div className="flex justify-center items-center  bg-gray-100">
+    <div className="flex justify-center items-center bg-gray-100">
       <Card className="w-full max-w-md">
         <CardHeader>
           <h1 className="text-2xl font-bold">Add a Review</h1>

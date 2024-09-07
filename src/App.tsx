@@ -62,6 +62,8 @@ function App() {
   ) : (
     <NextUIProvider>
       <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route
           index
           element={

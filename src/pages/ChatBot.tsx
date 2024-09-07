@@ -7,6 +7,7 @@ const ChatBot = () => {
         width: '100%',
         minHeight: '400px',
         border: '2px solid black',
+        height: '700px',
       }}
     ></iframe>
   );

@@ -99,7 +99,7 @@ const Settings = () => {
                       <option value="liver">Liver</option>
                       <option value="heart">Heart</option>
                       <option value="lung">Lung</option>
-                      <option value="pancreas">Pancreas</option>
+                      <option value="lung">Heart</option>
                     </select>
                   </div>
 

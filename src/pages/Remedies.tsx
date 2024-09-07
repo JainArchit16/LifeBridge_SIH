@@ -40,7 +40,7 @@ const Remedies = () => {
     <div className="w-full p-4">
       <div className="mt-12 max-w-lg flex items-center gap-8 justify-center">
         <Input
-          className="w-full bg-[#37373f] rounded-xl"
+          className="w-full rounded-xl"
           variant="bordered"
           type="text"
           label="Enter Disease to get remedies"

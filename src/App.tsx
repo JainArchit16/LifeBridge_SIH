@@ -20,6 +20,7 @@ import Diagnosis from './pages/Diagnosis';
 import Remedies from './pages/Remedies';
 import { NextUIProvider } from '@nextui-org/react';
 import ChatBot from './pages/ChatBot';
+import HomePage from './components/HomePage';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,10 +38,20 @@ function App() {
     <Loader />
   ) : (
     <NextUIProvider>
-      <DefaultLayout>
-        <Routes>
+      <Routes>
+        <Route
+          index
+          element={
+            <>
+              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <HomePage />
+            </>
+          }
+        />
+        <Route path="/menu" element={<DefaultLayout />}>
+          {/* <DefaultLayout> */}
           <Route
-            index
+            path="dashboard"
             element={
               <>
                 <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -49,7 +60,7 @@ function App() {
             }
           />
           <Route
-            path="/calendar"
+            path="calendar"
             element={
               <>
                 <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -58,7 +69,7 @@ function App() {
             }
           />
           <Route
-            path="/profile"
+            path="profile"
             element={
               <>
                 <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -67,7 +78,7 @@ function App() {
             }
           />
           <Route
-            path="/forms/form-elements"
+            path="forms/form-elements"
             element={
               <>
                 <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -76,7 +87,7 @@ function App() {
             }
           />
           <Route
-            path="/forms/form-layout"
+            path="forms/form-layout"
             element={
               <>
                 <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -85,7 +96,7 @@ function App() {
             }
           />
           <Route
-            path="/tables"
+            path="tables"
             element={
               <>
                 <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -94,7 +105,7 @@ function App() {
             }
           />
           <Route
-            path="/settings"
+            path="settings"
             element={
               <>
                 <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -103,7 +114,7 @@ function App() {
             }
           />
           <Route
-            path="/chart"
+            path="chart"
             element={
               <>
                 <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -112,7 +123,7 @@ function App() {
             }
           />
           <Route
-            path="/diagnosis"
+            path="diagnosis"
             element={
               <>
                 <PageTitle title="Diagnostics" />
@@ -121,7 +132,7 @@ function App() {
             }
           />
           <Route
-            path="/remedies"
+            path="remedies"
             element={
               <>
                 <PageTitle title="Remedies" />
@@ -130,7 +141,7 @@ function App() {
             }
           />
           <Route
-            path="/chatbot"
+            path="chatbot"
             element={
               <>
                 <PageTitle title="ChatBot" />
@@ -139,7 +150,7 @@ function App() {
             }
           />
           <Route
-            path="/ui/alerts"
+            path="ui/alerts"
             element={
               <>
                 <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -148,7 +159,7 @@ function App() {
             }
           />
           <Route
-            path="/ui/buttons"
+            path="ui/buttons"
             element={
               <>
                 <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -157,7 +168,7 @@ function App() {
             }
           />
           <Route
-            path="/auth/signin"
+            path="auth/signin"
             element={
               <>
                 <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -166,7 +177,7 @@ function App() {
             }
           />
           <Route
-            path="/auth/signup"
+            path="auth/signup"
             element={
               <>
                 <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -174,8 +185,10 @@ function App() {
               </>
             }
           />
-        </Routes>
-      </DefaultLayout>
+
+          {/* </DefaultLayout> */}
+        </Route>
+      </Routes>
     </NextUIProvider>
   );
 }

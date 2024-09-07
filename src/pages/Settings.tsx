@@ -20,7 +20,7 @@ const Settings = () => {
                   <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                     <div className="w-full sm:w-1/2">
                       <label
-                        className="mb-3 block text-md font-medium text-black dark:text-white"
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="fullName"
                       >
                         Full Name
@@ -36,7 +36,7 @@ const Settings = () => {
 
                     <div className="w-full sm:w-1/2">
                       <label
-                        className="mb-3 block text-md font-medium text-black dark:text-white"
+                        className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="dateOfBirth"
                       >
                         Date of Birth
@@ -52,7 +52,7 @@ const Settings = () => {
 
                   <div className="mb-5.5">
                     <label
-                      className="mb-3 block text-md font-medium text-black dark:text-white"
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="emailAddress"
                     >
                       Email Address
@@ -68,7 +68,7 @@ const Settings = () => {
 
                   <div className="mb-5.5">
                     <label
-                      className="mb-3 block text-md font-medium text-black dark:text-white"
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="phoneNumber"
                     >
                       Phone Number
@@ -84,7 +84,7 @@ const Settings = () => {
 
                   <div className="mb-5.5">
                     <label
-                      className="mb-3 block text-md font-medium text-black dark:text-white"
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="organNeeded"
                     >
                       Organ Needed
@@ -105,7 +105,7 @@ const Settings = () => {
 
                   <div className="mb-5.5">
                     <label
-                      className="mb-3 block text-md font-medium text-black dark:text-white"
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="medicalHistory"
                     >
                       Brief Medical History
@@ -120,7 +120,7 @@ const Settings = () => {
                   </div>
 
                   <div className="mb-5.5">
-                    <label className="mb-3 block text-md font-medium text-black dark:text-white">
+                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                       Blood Type
                     </label>
                     <div className="grid grid-cols-4 gap-4">
@@ -241,10 +241,6 @@ const Settings = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex">
-          <div className="h-10 bg-blue-600"> </div>
-          <div className="h-5 bg-black"></div>
         </div>
       </div>
     </>

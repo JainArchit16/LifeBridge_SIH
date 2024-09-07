@@ -186,7 +186,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Stats
+                              Statistics
                             </NavLink>
                           </li>
                         </ul>

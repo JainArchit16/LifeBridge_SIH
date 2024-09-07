@@ -5,7 +5,7 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
+// import Calendar from './pages/Calendar';
 // import Chart from './pages/Chart';
 import ECommerce from './pages/Dashboard/ECommerce';
 import Profile from './pages/Profile';
@@ -69,13 +69,23 @@ function App() {
     <NextUIProvider>
   
       <Routes>
-      <Route
+        <Route
           path="/signin"
-          element={user ? <Navigate to="/menu/dashboard" /> : <SignIn />}
+          element={
+            <>
+              <PageTitle title="SignIn | Life Bridge" />
+              <SignIn />
+            </>
+          }
         />
         <Route
           path="/signup"
-          element={user ? <Navigate to="/menu/dashboard" /> : <SignUp />}
+          element={
+            <>
+              <PageTitle title="SignUp | Life Bridge" />
+              <SignUp />
+            </>
+          }
         />
         <Route
           index
@@ -99,7 +109,7 @@ function App() {
               </>
             }
           />
-          <Route
+          {/* <Route
             path="calendar"
             element={
               <>
@@ -107,7 +117,7 @@ function App() {
                 <Calendar />
               </>
             }
-          />
+          /> */}
           <Route
             path="profile"
             element={

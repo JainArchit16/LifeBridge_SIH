@@ -66,7 +66,7 @@ function App() {
           index
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Life Bridge" />
               <HomePage />
             </>
           }
@@ -77,7 +77,7 @@ function App() {
             path="dashboard"
             element={
               <>
-                <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Life Bridge" />
                 <ECommerce />
               </>
             }
@@ -86,7 +86,7 @@ function App() {
             path="calendar"
             element={
               <>
-                <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Calendar | Life Bridge" />
                 <Calendar />
               </>
             }
@@ -95,7 +95,7 @@ function App() {
             path="profile"
             element={
               <>
-                <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Profile | Life Bridge" />
                 <Profile />
               </>
             }
@@ -104,7 +104,7 @@ function App() {
             path="settings"
             element={
               <>
-                <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Settings | Life Bridge" />
                 <Settings />
               </>
             }

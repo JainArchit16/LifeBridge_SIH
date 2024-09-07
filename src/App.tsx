@@ -30,6 +30,33 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
+  const location = useLocation();
+
+  // import '../HomeSpecific/css/style.css';
+  // import '../HomeSpecific/css/bootstrap.css';
+  // import '../personal.css';
+  // import '../HomeSpecific/fonts/font-awesome/css/font-awesome.css';
+  // import '../HomeSpecific/css/nivo-lightbox/nivo-lightbox.css';
+  // import '../HomeSpecific/css/nivo-lightbox/default.css';
+  // import '../HomeSpecific/js/jquery.1.11.1.js';
+  // import '../HomeSpecific/js/bootstrap.js';
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      import('./HomeSpecific/css/style.css');
+      import('./HomeSpecific/css/bootstrap.css');
+      import('./personal.css');
+      import('./HomeSpecific/fonts/font-awesome/css/font-awesome.css');
+      import('./HomeSpecific/css/nivo-lightbox/nivo-lightbox.css');
+      import('./HomeSpecific/css/nivo-lightbox/default.css');
+      import('./HomeSpecific/js/jquery.1.11.1.js');
+      import('./HomeSpecific/js/bootstrap.js');
+    } else {
+      import('./css/satoshi.css');
+      import('./css/style.css');
+    }
+  }, [location]);
+
   return loading ? (
     <Loader />
   ) : (

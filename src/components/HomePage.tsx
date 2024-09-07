@@ -32,6 +32,7 @@ interface LandingPageData {
 const HomePage = () => {
   const [landingPageData, setLandingPageData] =
     useState<LandingPageData | null>(null);
+
   useEffect(() => {
     setLandingPageData(JsonData);
   }, []);

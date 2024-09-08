@@ -7,9 +7,10 @@ import {
   CardBody,
   CardHeader,
 } from '@nextui-org/react';
-// import { addDoc, collection } from 'firebase/firestore';
-// import { getAuth } from 'firebase/auth'; // Firebase Authentication
-// import { db } from './firebase'; // Firestore instance
+import { getAuth } from 'firebase/auth';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import { toast } from 'react-hot-toast';
 
 interface Review {
   title: string;
@@ -51,8 +52,8 @@ const Reviews = () => {
     rating: 0,
   });
 
-  // const auth = getAuth(); // Firebase Authentication instance
-  // const currentUser = auth.currentUser; // Get the current logged-in user
+  const auth = getAuth(); // Firebase Authentication instance
+  const currentUser = auth.currentUser; // Get the current logged-in user
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -68,20 +69,25 @@ const Reviews = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if (!currentUser) {
-    //   console.error('User not logged in');
-    //   return;
-    // }
-
+    if (!currentUser) {
+      toast.error('User not logged in!!');
+      console.error('User not logged in');
+      return;
+    }
+    const toastid = toast.loading('Uploading...');
     try {
       const reviewWithUser = {
         ...review,
-        // userId: currentUser.uid,
+        userId: currentUser.uid,
       };
 
-      // await addDoc(collection(db, 'reviews'), reviewWithUser);
+      await addDoc(collection(db, 'reviews'), reviewWithUser);
+      toast.dismiss(toastid);
+      toast.success('Review Added');
       console.log('Review submitted:', reviewWithUser);
     } catch (error) {
+      toast.dismiss(toastid);
+      toast.success('Error adding review');
       console.error('Error submitting review:', error);
     }
   };

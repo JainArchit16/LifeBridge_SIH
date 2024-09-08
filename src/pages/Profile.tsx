@@ -6,21 +6,23 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 
 interface UserData {
-  name: string;
+  Name: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   city: string;
   gender: string;
   organNeeded: string;
+  medicalHistory: string;
 }
 
 const defaultUserData: UserData = {
-  name: 'N/A',
+  Name: 'N/A',
   email: 'N/A',
-  phone: 'N/A',
+  phoneNumber: 'N/A',
   city: 'N/A',
   gender: 'N/A',
   organNeeded: 'N/A',
+  medicalHistory: 'N/A',
 };
 
 const Profile: React.FC = () => {
@@ -56,7 +58,6 @@ const Profile: React.FC = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   return (
     <>
       <Breadcrumb pageName="Profile" />
@@ -78,7 +79,7 @@ const Profile: React.FC = () => {
             <div className="relative drop-shadow-2">
               <img
                 src={`https://api.dicebear.com/7.x/initials/svg?seed=${
-                  currentUser?.displayName || userData.name
+                  currentUser?.displayName || userData.Name
                 }`}
                 alt="profile"
                 className="rounded-full"
@@ -87,13 +88,13 @@ const Profile: React.FC = () => {
           </div>
           <div className="mt-4">
             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-              {userData.name}
+              {userData.Name}
             </h3>
             <p className="font-medium">{userData.email}</p>
             <div className="mx-auto mt-4.5 mb-5.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
               <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
                 <span className="font-semibold text-black dark:text-white">
-                  {userData.phone}
+                  {userData.phoneNumber}
                 </span>
                 <span className="text-sm">Phone</span>
               </div>
@@ -113,6 +114,11 @@ const Profile: React.FC = () => {
             <div className="mt-4 flex flex-col items-center justify-center">
               <span className="font-semibold text-black dark:text-white">
                 Organ Needed: {userData.organNeeded}
+              </span>
+            </div>
+            <div className="mt-4 flex flex-col items-center justify-center">
+              <span className="font-semibold text-black dark:text-white">
+                Brief Medical History: {userData.medicalHistory}
               </span>
             </div>
           </div>

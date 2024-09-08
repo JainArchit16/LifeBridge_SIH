@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { auth, db } from '../../../config/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import { addDoc, collection } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -77,14 +77,31 @@ const SignUp: React.FC = () => {
         bloodType: null,
         gender: null,
         medicalHistory: null,
+        conditions: {
+          heartAttack: false,
+          heartValve: false,
+          heartDefectAtBirth: false,
+          cardiomyopathy: false,
+          severeCysticFibrosis: false,
+          copd: false,
+          repeatedUrinaryInfections: false,
+          diabetes: false,
+          kidneyStones: false,
+          urinaryTractInfection: false,
+        },
       };
-
-      await addDoc(collection(db, 'users'), { uid: user.uid, ...data });
+      const userDocRef = doc(collection(db, 'users'), user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        ...data,
+      });
       console.log('User data added to Firestore.');
     } catch (e) {
       console.error('Error adding user data: ', e);
+      console.error('Error adding user data: ', e);
     }
   };
+
   return (
     <>
       <Breadcrumb pageName="Sign Up" />

@@ -17,14 +17,15 @@ type ConditionKeys =
   | 'urinaryTractInfection';
 const Settings = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    Name: '',
     dateOfBirth: '',
-    emailAddress: '',
+    email: '',
     phoneNumber: '',
     organNeeded: '',
     gender: '',
     medicalHistory: '',
     bloodType: '',
+    city: '',
     conditions: {
       heartAttack: false,
       heartValve: false,
@@ -102,7 +103,6 @@ const Settings = () => {
 
   // Array of blood types
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
-  console.log(formData);
   return (
     <>
       <div className="mx-auto max-w-270">
@@ -133,7 +133,7 @@ const Settings = () => {
                         name="fullName"
                         id="fullName"
                         placeholder="John Doe"
-                        value={formData.fullName}
+                        defaultValue={formData.Name}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -150,7 +150,7 @@ const Settings = () => {
                         type="date"
                         name="dateOfBirth"
                         id="dateOfBirth"
-                        value={formData.dateOfBirth}
+                        defaultValue={formData.dateOfBirth}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -170,7 +170,7 @@ const Settings = () => {
                       name="emailAddress"
                       id="emailAddress"
                       placeholder="johndoe@example.com"
-                      value={formData.emailAddress}
+                      defaultValue={formData.email}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -189,7 +189,7 @@ const Settings = () => {
                       name="phoneNumber"
                       id="phoneNumber"
                       placeholder="+1 (555) 000-0000"
-                      value={formData.phoneNumber}
+                      defaultValue={formData.phoneNumber}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -208,6 +208,8 @@ const Settings = () => {
                       name="city"
                       id="city"
                       placeholder="Delhi"
+                      value={formData.city}
+                      onChange={handleInputChange}
                     />
                   </div>
 
@@ -268,7 +270,7 @@ const Settings = () => {
                       id="medicalHistory"
                       rows={4}
                       placeholder="Please provide a brief overview of your medical history relevant to the transplant"
-                      value={formData.medicalHistory}
+                      defaultValue={formData.medicalHistory}
                       onChange={handleInputChange}
                     ></textarea>
                   </div>
@@ -284,7 +286,7 @@ const Settings = () => {
                           <input
                             type="radio"
                             name="bloodType"
-                            value={type}
+                            defaultValue={type}
                             checked={formData.bloodType === type}
                             onChange={handleInputChange}
                           />
@@ -292,25 +294,6 @@ const Settings = () => {
                         </label>
                       ))}
                     </div>
-                  </div>
-                  <div className="mb-5.5">
-                    <label
-                      className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="gender"
-                    >
-                      Gender
-                    </label>
-                    <select
-                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                      name="gender"
-                      id="gender"
-                      value={formData.gender}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                    </select>
                   </div>
                   {/* Medical Conditions */}
                   <div className="mb-5.5">

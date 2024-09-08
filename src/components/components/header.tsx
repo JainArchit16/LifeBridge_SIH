@@ -1,4 +1,19 @@
-export const Header = (props) => {
+import { useEffect, useState } from 'react';
+
+import { auth } from '../../../config/firebase';
+
+export const Header = (props: any) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check the authentication state
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <header id="header">
       <div className="intro">
@@ -11,12 +26,29 @@ export const Header = (props) => {
                   <span></span>
                 </h1>
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
-                <a
-                  href="#features"
-                  className="btn btn-custom btn-lg page-scroll"
-                >
-                  Learn More
-                </a>{' '}
+                {isAuthenticated ? (
+                  <a
+                    href="/dashboard"
+                    className="btn btn-custom btn-lg page-scroll"
+                  >
+                    Dashboard
+                  </a>
+                ) : (
+                  <>
+                    <a
+                      href="/signin"
+                      className="btn btn-custom btn-lg page-scroll"
+                    >
+                      Log In
+                    </a>{' '}
+                    <a
+                      href="/signup"
+                      className="btn btn-custom btn-lg page-scroll"
+                    >
+                      Sign Up
+                    </a>
+                  </>
+                )}
               </div>
             </div>
           </div>

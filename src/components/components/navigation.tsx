@@ -1,4 +1,4 @@
-export const Navigation = (props) => {
+export const Navigation = () => {
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -9,14 +9,27 @@ export const Navigation = (props) => {
             data-toggle="collapse"
             data-target="#bs-example-navbar-collapse-1"
           >
-            {" "}
-            <span className="sr-only">Toggle navigation</span>{" "}
-            <span className="icon-bar"></span>{" "}
-            <span className="icon-bar"></span>{" "}
-            <span className="icon-bar"></span>{" "}
+            {' '}
+            <span className="sr-only">Toggle navigation</span>{' '}
+            <span className="icon-bar"></span>{' '}
+            <span className="icon-bar"></span>{' '}
+            <span className="icon-bar"></span>{' '}
           </button>
-          <a className="page-scroll" href="#page-top">
-            <img src="/img/blueLogo.jpg" alt="Logo" style={{ height: '80px', width: '90px',padding : '0px',margin: '0px'}} />
+          <a
+            className="page-scroll flex flex-row justify-center items-center gap-4"
+            href="#page-top"
+          >
+            <img
+              src="/img/blueLogo.jpg"
+              alt="Logo"
+              style={{
+                height: '50px',
+                width: '60px',
+                padding: '0px',
+                margin: '0px',
+              }}
+            />
+            <span className="text-4xl font-bold">Life Bridge</span>
           </a>
           {/* <a className="navbar-brand page-scroll" href="#page-top">
             Life Bridge
@@ -24,8 +37,8 @@ export const Navigation = (props) => {
         </div>
 
         <div
-          className="collapse navbar-collapse"
-          id="bs-example-navbar-collapse-1"
+        // className="collapse navbar-collapse"
+        // id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
             <li>

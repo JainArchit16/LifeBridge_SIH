@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
     <>
       <Breadcrumb pageName="Sign In" />
 
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark h-[95vh]">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
@@ -60,7 +60,6 @@ const SignIn: React.FC = () => {
                 {/* <img  src="/img/new_logo.jpg" height={50} width={50} alt="Logo" /> */}
                 {/* <img src="/img/Logo.jpg" height="50px"  width="" alt="Logo" /> */}
               </Link>
-
 
               <span className="mt-15 inline-block">
                 <svg

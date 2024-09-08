@@ -1,9 +1,21 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
-import UserOne from '../../images/user/user-01.png';
+import { auth } from '../../../config/firebase';
+import { signOut } from 'firebase/auth';
+import toast from 'react-hot-toast';
 
 const DropdownUser = () => {
+  const navigate = useNavigate();
+  const LogOut = async () => {
+    try {
+      await signOut(auth);
+      toast.success('Logged out successfully');
+      navigate('/');
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -15,13 +27,17 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {auth.currentUser?.displayName}
           </span>
           {/* <span className="block text-xs">UX Designer</span> */}
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
+          <img
+            src={` https://api.dicebear.com/7.x/initials/svg?seed=${auth.currentUser?.displayName}`}
+            alt="User"
+            className="rounded-full"
+          />
         </span>
 
         <svg
@@ -99,7 +115,10 @@ const DropdownUser = () => {
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button
+            className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+            onClick={LogOut}
+          >
             <svg
               className="fill-current"
               width="22"

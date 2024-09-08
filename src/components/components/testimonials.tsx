@@ -7,62 +7,53 @@ import 'swiper/css/pagination';
 
 import './testimonials.css';
 
-// const mockBlogData: Blog[] = [
-//   {
-//     thumbnail: 'https://via.placeholder.com/240x150',
-//     name: 'Blog Post 1',
-//     by: 'Author 1',
-//     desc: 'This is a description of the first blog post.',
-//   },
-//   {
-//     thumbnail: 'https://via.placeholder.com/240x150',
-//     name: 'Blog Post 2',
-//     by: 'Author 2',
-//     desc: 'This is a description of the second blog post.',
-//   },
-//   {
-//     thumbnail: 'https://via.placeholder.com/240x150',
-//     name: 'Blog Post 3',
-//     by: 'Author 3',
-//     desc: 'This is a description of the third blog post.',
-//   },
-//   {
-//     thumbnail: 'https://via.placeholder.com/240x150',
-//     name: 'Blog Post 4',
-//     by: 'Author 4',
-//     desc: 'This is a description of the fourth blog post.',
-//   },
-// ];
-
 // Import required modules
 import { Autoplay, FreeMode, Pagination } from 'swiper/modules';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 
-// Define the type for a blog object
-interface Blog {
-  thumbnail: string;
+// Define the type for a review object
+interface Review {
+  title: string;
+  content: string;
+  rating: number;
+  userId?: string;
   name: string;
-  by: string;
-  desc: string;
 }
 
+const StarRating = ({ rating }: { rating: number }) => {
+  return (
+    <div className="flex">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span
+          key={star}
+          className={`text-4xl ${
+            star <= rating ? 'text-yellow-400' : 'text-gray-300'
+          }`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+};
+
 export const Testimonials: React.FC = () => {
-  const [Blogs, setBlogs] = useState<Blog[]>([]); // Type the state as an array of Blog
+  const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'blogs'));
-        const blogDataArray: Blog[] = querySnapshot.docs.map((doc) => ({
+        const querySnapshot = await getDocs(collection(db, 'reviews'));
+        const reviewDataArray: Review[] = querySnapshot.docs.map((doc) => ({
           ...doc.data(),
-        })) as Blog[]; // Cast the result to Blog[]
+        })) as Review[];
 
-        console.log('All Doctors/patient data:', blogDataArray);
+        console.log('All Reviews data:', reviewDataArray);
 
-        setBlogs(blogDataArray);
+        setReviews(reviewDataArray);
       } catch (error) {
-        console.error('Error fetching account type:', (error as Error).message); // Type assertion for error
+        console.error('Error fetching reviews:', (error as Error).message);
       }
     })();
   }, []);
@@ -72,7 +63,7 @@ export const Testimonials: React.FC = () => {
       <div className="my-[50px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
           slidesPerView={3}
-          spaceBetween={25}
+          spaceBetween={30}
           loop={true}
           freeMode={true}
           autoplay={{
@@ -82,25 +73,24 @@ export const Testimonials: React.FC = () => {
           modules={[FreeMode, Pagination, Autoplay]}
           className="w-full"
         >
-          {Blogs.map((blog, i) => (
+          {reviews.map((review, i) => (
             <SwiperSlide key={i}>
               <div className="flex flex-col gap-3 bg-[#161D29] p-3 text-[17px] text-richblack-25 rounded-lg items-center">
-                <div className="gap-4 flex flex-col items-center">
-                  <img
-                    src={blog?.thumbnail}
-                    alt={blog?.name}
-                    className="h-[150px] w-[240px] object-cover rounded-lg"
-                  />
-                  <div className="flex flex-col items-center gap-2">
-                    <h1 className="font-semibold text-richblack-5">
-                      {blog?.name}
-                    </h1>
-                    <h2 className="text-[15px] font-medium text-richblack-500">
-                      by: {blog?.by}
-                    </h2>
-                  </div>
+                <div className="flex flex-col items-center gap-2">
+                  <h1 className="font-semibold text-richblack-5">
+                    {review.title}
+                  </h1>
+                  <h2
+                    className="text-[15px] font-medium text-richblack-500"
+                    style={{ textTransform: 'none' }}
+                  >
+                    by: {review?.name || 'Anonymous'} {/* Adjust as needed */}
+                  </h2>
+                  <StarRating rating={review.rating} /> {/* Display rating */}
                 </div>
-                <p className="font-medium text-richblack-25">{blog?.desc}</p>
+                <p className="font-medium text-richblack-25">
+                  {review.content}
+                </p>
               </div>
             </SwiperSlide>
           ))}
@@ -109,5 +99,3 @@ export const Testimonials: React.FC = () => {
     </div>
   );
 };
-
-// export default Testimonials;

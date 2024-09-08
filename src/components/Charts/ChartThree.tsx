@@ -1,10 +1,37 @@
 import { ApexOptions } from 'apexcharts';
-import React, { useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { db } from '../../../config/firebase';
 
 interface ChartThreeState {
   series: number[];
+  labels: string[];
 }
+
+export const getUserCityCounts = async () => {
+  try {
+    const usersRef = collection(db, 'users');
+    const querySnapshot = await getDocs(usersRef);
+
+    // Aggregate user counts per city
+    const cityCounts: { [key: string]: number } = {};
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const city = data.city;
+
+      if (city) {
+        cityCounts[city] = (cityCounts[city] || 0) + 1;
+      }
+    });
+
+    return cityCounts;
+  } catch (error) {
+    console.error('Error fetching user city counts:', error);
+    return {};
+  }
+};
 
 const options: ApexOptions = {
   chart: {
@@ -12,7 +39,7 @@ const options: ApexOptions = {
     type: 'donut',
   },
   colors: ['#3C50E0', '#6577F3', '#8FD0EF', '#0FADCF'],
-  labels: ['Desktop', 'Tablet', 'Mobile', 'Unknown'],
+  // labels: ['Desktop', 'Tablet', 'Mobile', 'Unknown'],
   legend: {
     show: false,
     position: 'bottom',
@@ -50,9 +77,34 @@ const options: ApexOptions = {
 };
 
 const ChartThree: React.FC = () => {
+  // const [state, setState] = useState<ChartThreeState>({
+  //   series: [65, 34, 12, 56],
+  // });
+
   const [state, setState] = useState<ChartThreeState>({
-    series: [65, 34, 12, 56],
+    series: [],
+    labels: [],
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cityCounts = await getUserCityCounts();
+
+        const labels = Object.keys(cityCounts);
+        const series = Object.values(cityCounts);
+
+        setState({
+          series,
+          labels,
+        });
+      } catch (error) {
+        console.error('Error updating chart data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleReset = () => {
     setState((prevState) => ({
@@ -67,11 +119,11 @@ const ChartThree: React.FC = () => {
       <div className="mb-3 justify-between gap-4 sm:flex">
         <div>
           <h5 className="text-xl font-semibold text-black dark:text-white">
-            Visitors Analytics
+            Users By City
           </h5>
         </div>
         <div>
-          <div className="relative z-20 inline-block">
+          {/* <div className="relative z-20 inline-block">
             <select
               name=""
               id=""
@@ -104,14 +156,14 @@ const ChartThree: React.FC = () => {
                 />
               </svg>
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
 
       <div className="mb-2">
         <div id="chartThree" className="mx-auto flex justify-center">
           <ReactApexChart
-            options={options}
+            options={{ ...options, labels: state.labels }}
             series={state.series}
             type="donut"
           />
@@ -119,25 +171,25 @@ const ChartThree: React.FC = () => {
       </div>
 
       <div className="-mx-8 flex flex-wrap items-center justify-center gap-y-3">
-        <div className="sm:w-1/2 w-full px-8">
-          <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-primary"></span>
-            <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-              <span> Desktop </span>
-              <span> 65% </span>
-            </p>
+        <div className="sm:w-1/2 w-full px-8"></div>
+        {state.labels.map((label, index) => (
+          <div className="sm:w-1/2 w-full px-8" key={index}>
+            <div className="flex w-full items-center">
+              <span
+                className="mr-2 block h-3 w-full max-w-3 rounded-full"
+                style={{
+                  backgroundColor:
+                    options.colors[index % options.colors.length],
+                }}
+              ></span>
+              <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
+                <span>{label}</span>
+                <span>{state.series[index]}</span>
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="sm:w-1/2 w-full px-8">
-          <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#6577F3]"></span>
-            <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-              <span> Tablet </span>
-              <span> 34% </span>
-            </p>
-          </div>
-        </div>
-        <div className="sm:w-1/2 w-full px-8">
+        ))}
+        {/* <div className="sm:w-1/2 w-full px-8">
           <div className="flex w-full items-center">
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#8FD0EF]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
@@ -154,7 +206,7 @@ const ChartThree: React.FC = () => {
               <span> 12% </span>
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

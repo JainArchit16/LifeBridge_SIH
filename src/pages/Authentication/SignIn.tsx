@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase'; // Firebase configuration
 // import { setsignupData } from '../store/actions'; // Redux action for setting user data
-import { toast } from 'react-toastify'; // To show notifications
+import { toast } from 'react-hot-toast'; // To show notifications
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ const SignIn: React.FC = () => {
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loading = toast.loading('Loading..');
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -36,12 +37,11 @@ const SignIn: React.FC = () => {
         formData.email,
         formData.password,
       );
-
-      // const serializableUserData = userCredential.user.toJSON();
-      // dispatch(setsignupData(serializableUserData));
+      toast.dismiss(loading);
       toast.success('Signed in successfully!');
       navigate('/');
     } catch (error: any) {
+      toast.dismiss(loading);
       toast.error(error.message);
       console.error(error.message);
     } finally {
@@ -354,7 +354,7 @@ const SignIn: React.FC = () => {
                 {/* Password Field */}
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input
@@ -362,7 +362,7 @@ const SignIn: React.FC = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleOnChange}
-                      placeholder="6+ Characters, 1 Capital letter"
+                      placeholder="6+ Characters"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       required
                     />

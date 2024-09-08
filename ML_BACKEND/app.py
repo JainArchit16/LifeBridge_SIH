@@ -76,8 +76,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # Replace with your front-end's origin
-    allow_origins=["http://localhost:8100",
-                   "https://internal-sih-xi.vercel.app", "http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers

@@ -75,7 +75,7 @@ export const Testimonials: React.FC = () => {
         >
           {reviews.map((review, i) => (
             <SwiperSlide key={i}>
-              <div className="flex flex-col gap-3 bg-[#161D29] p-3 text-[17px] text-richblack-25 rounded-lg items-center">
+              <div className="flex flex-col gap-3 bg-blue-500 p-3 text-[17px] text-richblack-25 rounded-lg items-center bg-gradient-to-br">
                 <div className="flex flex-col items-center gap-2">
                   <h1 className="font-semibold text-richblack-5">
                     {review.title}

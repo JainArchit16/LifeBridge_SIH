@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Input } from '@nextui-org/react';
 import { marked } from 'marked';
+import toast from 'react-hot-toast';
 
 const Remedies = () => {
   const [disease, setDisease] = useState('');
@@ -11,6 +12,7 @@ const Remedies = () => {
   };
 
   const handleButtonClick = async () => {
+    const loading = toast.loading('Fetching Results');
     try {
       const response = await fetch(
         'https://internal-sih.onrender.com/get_disease_info/',
@@ -22,12 +24,15 @@ const Remedies = () => {
           body: JSON.stringify({ user_disease: disease }),
         },
       );
+      toast.dismiss(loading);
       if (!response.ok) {
+        toast.error('Something Went Wrong');
         throw new Error('Failed to fetch recommendations');
       }
       const data = await response.json();
       console.log(data.output_text);
       setRemedies(data.output_text);
+      toast.success('Success');
       setError(null);
     } catch (error: any) {
       console.error('Error fetching remedies:', error);

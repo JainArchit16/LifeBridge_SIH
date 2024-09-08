@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { auth, db } from '../../../config/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -98,8 +98,10 @@ const SignUp: React.FC = () => {
       console.log('User data added to Firestore.');
     } catch (e) {
       console.error('Error adding user data: ', e);
+      console.error('Error adding user data: ', e);
     }
   };
+
   return (
     <>
       <Breadcrumb pageName="Sign Up" />

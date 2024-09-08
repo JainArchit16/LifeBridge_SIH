@@ -19,6 +19,7 @@ import Reviews from './pages/Reviews';
 // Firebase authentication import
 import { auth } from '../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import Donor from './pages/Donor.js';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -110,15 +111,6 @@ function App() {
               </>
             }
           />
-          {/* <Route
-            path="calendar"
-            element={
-              <>
-                <PageTitle title="Calendar | Life Bridge" />
-                <Calendar />
-              </>
-            }
-          /> */}
           <Route
             path="profile"
             element={
@@ -134,6 +126,15 @@ function App() {
               <>
                 <PageTitle title="Settings | Life Bridge" />
                 <Settings />
+              </>
+            }
+          />
+          <Route
+            path="donor"
+            element={
+              <>
+                <PageTitle title="Donor | Life Bridge" />
+                <Donor />
               </>
             }
           />

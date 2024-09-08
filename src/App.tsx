@@ -61,6 +61,7 @@ function App() {
       import('./css/satoshi.css');
       import('./css/style.css');
     }
+    return () => {};
   }, [location]);
 
   return loading ? (

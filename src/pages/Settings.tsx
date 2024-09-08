@@ -4,7 +4,17 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { toast } from 'react-hot-toast';
-
+type ConditionKeys =
+  | 'heartAttack'
+  | 'heartValve'
+  | 'heartDefectAtBirth'
+  | 'cardiomyopathy'
+  | 'severeCysticFibrosis'
+  | 'copd'
+  | 'repeatedUrinaryInfections'
+  | 'diabetes'
+  | 'kidneyStones'
+  | 'urinaryTractInfection';
 const Settings = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -15,11 +25,22 @@ const Settings = () => {
     gender: '',
     medicalHistory: '',
     bloodType: '',
+    conditions: {
+      heartAttack: false,
+      heartValve: false,
+      heartDefectAtBirth: false,
+      cardiomyopathy: false,
+      severeCysticFibrosis: false,
+      copd: false,
+      repeatedUrinaryInfections: false,
+      diabetes: false,
+      kidneyStones: false,
+      urinaryTractInfection: false,
+    },
   });
 
   const auth = getAuth();
   const userId = auth.currentUser?.uid; // Assuming you have user ID
-
   useEffect(() => {
     if (userId) {
       const fetchData = async () => {
@@ -49,7 +70,13 @@ const Settings = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      conditions: { ...prev.conditions, [name]: checked },
+    }));
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -75,7 +102,7 @@ const Settings = () => {
 
   // Array of blood types
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
-
+  console.log(formData);
   return (
     <>
       <div className="mx-auto max-w-270">
@@ -263,6 +290,56 @@ const Settings = () => {
                           />
                           {type}
                         </label>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mb-5.5">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="gender"
+                    >
+                      Gender
+                    </label>
+                    <select
+                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                      name="gender"
+                      id="gender"
+                      value={formData.gender}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  {/* Medical Conditions */}
+                  <div className="mb-5.5">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="conditions"
+                    >
+                      Medical Conditions
+                    </label>
+                    <div className="space-y-2">
+                      {Object.keys(formData.conditions).map((condition) => (
+                        <div key={condition} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            name={condition}
+                            id={condition}
+                            checked={
+                              formData.conditions[condition as ConditionKeys]
+                            }
+                            onChange={handleCheckboxChange}
+                            className="mr-2"
+                          />
+                          <label
+                            htmlFor={condition}
+                            className="text-sm font-medium text-black dark:text-white"
+                          >
+                            {condition.toUpperCase()}
+                          </label>
+                        </div>
                       ))}
                     </div>
                   </div>

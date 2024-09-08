@@ -66,12 +66,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <NavLink to="/">
+        <NavLink
+          className="page-scroll flex flex-row justify-center items-center gap-4"
+          to="/"
+        >
           <img
             src="/img/blueLogo.jpg"
             alt="Logo"
-            style={{ width: '80px', height: '70px' }}
+            style={{
+              height: '50px',
+              width: '50px',
+              padding: '0px',
+              margin: '0px',
+            }}
           />
+          <span className="text-2xl font-bold">Life Bridge</span>
         </NavLink>
 
         <button

@@ -66,14 +66,13 @@ const addData = async (user: any) => {
         const data = {
             Name: Name,
             email: email,
-            phoneNumb: null,
-            model: null,
-            emergContact: null,
-            carNumb: null,
-            allergy: null,
+            phoneNumber: null,
+            dateofBirth: null,
+            city: null,
+            organNeeded: null,
             bloodType: null,
-            carPic: null,
-            medicalHistory: null,
+            gender: null,
+            medicalHistory:null
         };
 
         await addDoc(collection(db, 'users'), { uid: user.uid, ...data });
@@ -306,19 +305,12 @@ const addData = async (user: any) => {
                                     />
                                 </div>
 
-                                <button
-                                    className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"
-                                >
-                                    <span>
-                                        {/* SVG remains unchanged */}
-                                    </span>
-                                    Sign up with Google
-                                </button>
+
 
                                 <div className="mt-6 text-center">
                                     <p>
                                         Already have an account?{' '}
-                                        <Link to="/auth/signin" className="text-primary">
+                                        <Link to="/signin" className="text-primary">
                                             Sign in
                                         </Link>
                                     </p>

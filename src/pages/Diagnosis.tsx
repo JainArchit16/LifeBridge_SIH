@@ -1,5 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaPlus, FaTimes } from 'react-icons/fa'; // Import icons from react-icons
 
 interface SelectedItems {
@@ -66,6 +67,7 @@ const Diagnosis = () => {
   };
 
   const handleClick = async () => {
+    const loading = toast.loading('Fetching results');
     try {
       console.log(selectedItems);
       const response = await fetch(
@@ -79,11 +81,14 @@ const Diagnosis = () => {
         },
       );
 
+      toast.dismiss(loading);
       if (!response.ok) {
+        toast.error('Something Went Wrong');
         throw new Error('Failed to fetch recommendations');
       }
 
       const data = await response.json();
+      toast.success('Result Fetched');
       setDiagnosis(data.prediction);
       setError(null);
     } catch (error: any) {

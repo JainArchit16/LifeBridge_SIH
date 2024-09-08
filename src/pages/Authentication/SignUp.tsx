@@ -1,86 +1,105 @@
 import React from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import { useState } from 'react';
-import { auth, db } from '../../../config/firebase'; 
+import { auth, db } from '../../../config/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
-    Name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-});
-const { Name, email, password, confirmPassword } = formData;
-const [error, setError] = useState('');
-const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
+    Name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const { Name, email, password, confirmPassword } = formData;
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
+      ...formData,
+      [e.target.name]: e.target.value,
     });
-};
+  };
 
-const handleSignUp = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     if (password !== confirmPassword) {
-        setError('Passwords do not match');
-        setLoading(false);
-        return;
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
     }
 
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
 
-        // Update user profile
-        await updateProfile(user, {
-            displayName: `${Name}`,
-            photoURL: `https://api.dicebear.com/7.x/initials/svg?seed=${Name}`,
-        });
+      // Update user profile
+      await updateProfile(user, {
+        displayName: `${Name}`,
+        photoURL: `https://api.dicebear.com/7.x/initials/svg?seed=${Name}`,
+      });
 
-        // Add user data to Firestore
-        await addData(user);
+      // Add user data to Firestore
+      await addData(user);
 
-        toast.success("Account created successfully!");
-        setLoading(false);
-        navigate('/menu/dashboard');
+      toast.success('Account created successfully!');
+      setLoading(false);
+      navigate('/menu/dashboard');
     } catch (err: any) {
-        setError(err.message);
-        setLoading(false);
+      setError(err.message);
+      setLoading(false);
     }
-};
+  };
 
-const addData = async (user: any) => {
+  const addData = async (user: any) => {
     try {
-        const data = {
-            Name: Name,
-            email: email,
-            phoneNumber: null,
-            dateofBirth: null,
-            city: null,
-            organNeeded: null,
-            bloodType: null,
-            gender: null,
-            medicalHistory:null
-        };
-
-        await addDoc(collection(db, 'users'), { uid: user.uid, ...data });
-        console.log('User data added to Firestore.');
+      const data = {
+        Name: Name,
+        email: email,
+        phoneNumber: null,
+        dateofBirth: null,
+        city: null,
+        organNeeded: null,
+        bloodType: null,
+        gender: null,
+        medicalHistory: null,
+        conditions: {
+          heartAttack: false,
+          heartValve: false,
+          heartDefectAtBirth: false,
+          cardiomyopathy: false,
+          severeCysticFibrosis: false,
+          copd: false,
+          repeatedUrinaryInfections: false,
+          diabetes: false,
+          kidneyStones: false,
+          urinaryTractInfection: false,
+        },
+      };
+      const userDocRef = doc(collection(db, 'users'), user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        ...data,
+      });
+      console.log('User data added to Firestore.');
     } catch (e) {
-        console.error('Error adding user data: ', e);
+      console.error('Error adding user data: ', e);
     }
-};
+  };
   return (
     <>
       <Breadcrumb pageName="Sign Up" />
@@ -230,92 +249,90 @@ const addData = async (user: any) => {
                 Sign Up to LifeBridge
               </h2>
               <form onSubmit={handleSignUp}>
-                                <div className="mb-4">
-                                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                                        Name
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            name="Name"
-                                            placeholder="Enter your name"
-                                            value={Name}
-                                            onChange={handleOnChange}
-                                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
-                                </div>
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Name
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="Name"
+                      placeholder="Enter your name"
+                      value={Name}
+                      onChange={handleOnChange}
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
 
-                                <div className="mb-4">
-                                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                                        Email
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="Enter your email"
-                                            value={email}
-                                            onChange={handleOnChange}
-                                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
-                                </div>
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Email
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={handleOnChange}
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
 
-                                <div className="mb-4">
-                                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                                        Password
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            placeholder="Enter your password"
-                                            value={password}
-                                            onChange={handleOnChange}
-                                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
-                                </div>
+                <div className="mb-4">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={handleOnChange}
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
 
-                                <div className="mb-6">
-                                    <label className="mb-2.5 block font-medium text-black dark:text-white">
-                                        Re-type Password
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            type="password"
-                                            name="confirmPassword"
-                                            placeholder="Re-enter your password"
-                                            value={confirmPassword}
-                                            onChange={handleOnChange}
-                                            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
-                                </div>
+                <div className="mb-6">
+                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                    Re-type Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Re-enter your password"
+                      value={confirmPassword}
+                      onChange={handleOnChange}
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                </div>
 
-                                {error && <p className="text-red-500">{error}</p>}
+                {error && <p className="text-red-500">{error}</p>}
 
-                                <div className="mb-5">
-                                    <input
-                                        type="submit"
-                                        value={loading ? "Creating account..." : "Create account"}
-                                        className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                                        disabled={loading}
-                                    />
-                                </div>
+                <div className="mb-5">
+                  <input
+                    type="submit"
+                    value={loading ? 'Creating account...' : 'Create account'}
+                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    disabled={loading}
+                  />
+                </div>
 
-
-
-                                <div className="mt-6 text-center">
-                                    <p>
-                                        Already have an account?{' '}
-                                        <Link to="/signin" className="text-primary">
-                                            Sign in
-                                        </Link>
-                                    </p>
-                                </div>
-                            </form>
+                <div className="mt-6 text-center">
+                  <p>
+                    Already have an account?{' '}
+                    <Link to="/signin" className="text-primary">
+                      Sign in
+                    </Link>
+                  </p>
+                </div>
+              </form>
               {/* <form onSubmit={handleSignUp}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">

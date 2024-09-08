@@ -40,7 +40,7 @@ function App() {
   // Check Firebase authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);  // Update user state when logged in
+      setUser(currentUser); // Update user state when logged in
     });
     return () => unsubscribe(); // Cleanup on unmount
   }, []);
@@ -68,7 +68,6 @@ function App() {
     <Loader />
   ) : (
     <NextUIProvider>
-  
       <Routes>
         <Route
           path="/signin"
@@ -98,9 +97,12 @@ function App() {
           }
         />
         {/* Authentication Routes */}
-        
+
         {/* Protected Routes */}
-        <Route path="/menu" element={user ? <DefaultLayout /> : <Navigate to="/signin" />}>
+        <Route
+          path="/menu"
+          element={user ? <DefaultLayout /> : <Navigate to="/signup" />}
+        >
           <Route
             path="dashboard"
             element={

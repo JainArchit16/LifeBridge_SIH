@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase'; // Firebase configuration
 // import { setsignupData } from '../store/actions'; // Redux action for setting user data
-import { toast } from 'react-toastify'; // To show notifications
+import { toast } from 'react-hot-toast'; // To show notifications
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ const SignIn: React.FC = () => {
   const handleOnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const loading = toast.loading('Loading..');
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -36,12 +37,11 @@ const SignIn: React.FC = () => {
         formData.email,
         formData.password,
       );
-
-      // const serializableUserData = userCredential.user.toJSON();
-      // dispatch(setsignupData(serializableUserData));
+      toast.dismiss(loading);
       toast.success('Signed in successfully!');
       navigate('/');
     } catch (error: any) {
+      toast.dismiss(loading);
       toast.error(error.message);
       console.error(error.message);
     } finally {
@@ -358,7 +358,7 @@ const SignIn: React.FC = () => {
                 {/* Password Field */}
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input

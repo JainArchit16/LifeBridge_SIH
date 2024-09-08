@@ -28,7 +28,7 @@ export const Header = (props: any) => {
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
                 {isAuthenticated ? (
                   <a
-                    href="/dashboard"
+                    href="/menu/dashboard"
                     className="btn btn-custom btn-lg page-scroll"
                   >
                     Dashboard

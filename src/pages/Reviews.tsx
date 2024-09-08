@@ -54,7 +54,6 @@ const Reviews = () => {
 
   const auth = getAuth(); // Firebase Authentication instance
   const currentUser = auth.currentUser; // Get the current logged-in user
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -78,12 +77,14 @@ const Reviews = () => {
     try {
       const reviewWithUser = {
         ...review,
-        userId: currentUser.uid,
+        name: currentUser.displayName,
+        email: currentUser.email,
       };
 
       await addDoc(collection(db, 'reviews'), reviewWithUser);
       toast.dismiss(toastid);
       toast.success('Review Added');
+      setReview({ title: '', content: '', rating: 0 });
       console.log('Review submitted:', reviewWithUser);
     } catch (error) {
       toast.dismiss(toastid);

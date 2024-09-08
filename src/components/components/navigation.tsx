@@ -16,7 +16,7 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
           </button>
           <a className="page-scroll" href="#page-top">
-            <img src="/img/Logo.jpg" alt="Logo" style={{ height: '100px', width: '200px',padding : '0px',margin: '0px'}} />
+            <img src="/img/blueLogo.jpg" alt="Logo" style={{ height: '80px', width: '90px',padding : '0px',margin: '0px'}} />
           </a>
           {/* <a className="navbar-brand page-scroll" href="#page-top">
             Life Bridge

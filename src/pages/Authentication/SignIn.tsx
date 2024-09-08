@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-                <img  src="/img/Logo.jpg" height={50} width={500} alt="Logo" />
+                {/* <img  src="/img/new_logo.jpg" height={50} width={50} alt="Logo" /> */}
                 {/* <img src="/img/Logo.jpg" height="50px"  width="" alt="Logo" /> */}
               </Link>
 

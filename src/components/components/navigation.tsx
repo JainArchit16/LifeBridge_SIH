@@ -15,9 +15,12 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top">
+          <a className="page-scroll" href="#page-top">
+            <img src="/img/Logo.jpg" alt="Logo" style={{ height: '100px', width: '200px',padding : '0px',margin: '0px'}} />
+          </a>
+          {/* <a className="navbar-brand page-scroll" href="#page-top">
             Life Bridge
-          </a>{" "}
+          </a>{" "} */}
         </div>
 
         <div

@@ -15,7 +15,7 @@ const Remedies = () => {
     const loading = toast.loading('Fetching Results');
     try {
       const response = await fetch(
-        'https://internal-sih.onrender.com/get_disease_info/',
+        'https://lifebridge-sih.onrender.com/get_disease_info/',
         {
           method: 'POST',
           headers: {

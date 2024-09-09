@@ -58,13 +58,13 @@ const DropdownNotification = () => {
                 >
                   <p className="text-sm">
                     <span className="text-black dark:text-white">
-                      Edit your information in a swipe
+                      {/* Update documents */}
+                      You haven't updated your documents from the past 3 months
                     </span>{' '}
-                    Sint occaecat cupidatat non proident, sunt in culpa qui
-                    officia deserunt mollit anim.
+                      {/* You haven't updated your documents from the past 3 months */}
                   </p>
 
-                  <p className="text-xs">12 May, 2025</p>
+                  <p className="text-xs">24 May, 2025</p>
                 </Link>
               </li>
               <li>
@@ -74,12 +74,12 @@ const DropdownNotification = () => {
                 >
                   <p className="text-sm">
                     <span className="text-black dark:text-white">
-                      It is a long established fact
+                    Your documents have been updated
                     </span>{' '}
-                    that a reader will be distracted by the readable.
+                    {/* that a reader will be distracted by the readable. */}
                   </p>
 
-                  <p className="text-xs">24 Feb, 2025</p>
+                  <p className="text-xs">24 Feb, 2024</p>
                 </Link>
               </li>
               <li>
@@ -89,13 +89,13 @@ const DropdownNotification = () => {
                 >
                   <p className="text-sm">
                     <span className="text-black dark:text-white">
-                      There are many variations
+                    You haven't updated your documents from the past 3 months
                     </span>{' '}
-                    of passages of Lorem Ipsum available, but the majority have
-                    suffered
+                    {/* of passages of Lorem Ipsum available, but the majority have
+                    suffered */}
                   </p>
 
-                  <p className="text-xs">04 Jan, 2025</p>
+                  <p className="text-xs">04 Feb, 2024</p>
                 </Link>
               </li>
               <li>
@@ -105,13 +105,13 @@ const DropdownNotification = () => {
                 >
                   <p className="text-sm">
                     <span className="text-black dark:text-white">
-                      There are many variations
+                      Welcome to our Website
                     </span>{' '}
-                    of passages of Lorem Ipsum available, but the majority have
-                    suffered
+                    {/* of passages of Lorem Ipsum available, but the majority have
+                    suffered */}
                   </p>
 
-                  <p className="text-xs">01 Dec, 2024</p>
+                  <p className="text-xs">01 Dec, 2023</p>
                 </Link>
               </li>
             </ul>

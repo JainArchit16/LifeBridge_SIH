@@ -71,7 +71,7 @@ const Diagnosis = () => {
     try {
       console.log(selectedItems);
       const response = await fetch(
-        'https://internal-sih.onrender.com/predict',
+        'https://lifebridge-sih.onrender.com/predict',
         {
           method: 'POST',
           headers: {

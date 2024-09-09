@@ -306,7 +306,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Settings
+                  Patients
                 </NavLink>
               </li>
               {/* <!-- Menu Item Settings --> */}

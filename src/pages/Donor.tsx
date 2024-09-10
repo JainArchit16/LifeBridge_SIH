@@ -9,7 +9,7 @@ const Donor = () => {
     city: '',
   });
   const [patientsList, setPatientsList] = useState<
-    { emailAddress: string; priority: number }[]
+    { emailAddress: string; priority: number; name: string; city: string }[]
   >([]);
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -32,6 +32,14 @@ const Donor = () => {
     const querySnapshot = await getDocs(patientsCollectionRef);
     console.log(querySnapshot.docs[0].data());
     // Create a dictionary of dictionaries for patients
+    const patientsData = querySnapshot.docs
+      .map((doc) => doc.data())
+      .filter((patient) => patient.organNeeded === formData.organ)
+      .map((patient) => ({
+        emailAddress: patient.email || 'N/A',
+        name: patient.Name || 'N/A',
+        city: patient.city || 'N/A',
+      }));
     const patientsDict = querySnapshot.docs
       .map((doc) => doc.data())
       .filter((patient) => patient.organNeeded === formData.organ)
@@ -81,12 +89,34 @@ const Donor = () => {
       if (response.ok) {
         // Assuming the response contains a list of patients with email and priority
         toast.success('List Generated');
-        const formattedResult = result.map(
-          ([emailAddress, priority]: [string, number]) => ({
-            emailAddress,
-            priority,
-          }),
-        );
+        const formattedResult = result
+          .map(([emailAddress, priority]: [string, number]) => {
+            const patient = patientsData.find(
+              (p) => p.emailAddress === emailAddress,
+            );
+            return {
+              emailAddress,
+              priority,
+              name: patient?.name || 'N/A',
+              city: patient?.city || 'N/A',
+            };
+          })
+          .sort((a: any, b: any) => {
+            const donorCity = formData.city.toLowerCase(); // Convert donor city to lowercase for comparison
+
+            // First, check if cities match
+            const cityMatchA = a.city.toLowerCase() === donorCity ? 1 : 0;
+            const cityMatchB = b.city.toLowerCase() === donorCity ? 1 : 0;
+
+            // If city match differs, sort by city match (same city as donor first)
+            if (cityMatchA !== cityMatchB) {
+              return cityMatchB - cityMatchA;
+            }
+
+            // If cities are the same or both are different, sort by priority in descending order
+            return b.priority - a.priority;
+          });
+
         setPatientsList(formattedResult);
       } else {
         toast.error('Something Went Wrong');
@@ -194,6 +224,14 @@ const Donor = () => {
                         >
                           <div className="flex justify-between items-center">
                             <div>
+                              <div className="text-sm font-medium text-gray-700">
+                                <span className="font-semibold">Name:</span>{' '}
+                                {patient.name}
+                              </div>
+                              <div className="text-sm font-medium text-gray-700">
+                                <span className="font-semibold">City:</span>{' '}
+                                {patient.city}
+                              </div>
                               <div className="text-sm font-medium text-gray-700">
                                 <span className="font-semibold">Email:</span>{' '}
                                 {patient.emailAddress}

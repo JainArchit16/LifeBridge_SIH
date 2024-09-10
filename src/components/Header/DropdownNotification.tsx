@@ -64,7 +64,7 @@ const DropdownNotification = () => {
                       {/* You haven't updated your documents from the past 3 months */}
                   </p>
 
-                  <p className="text-xs">24 May, 2025</p>
+                  <p className="text-xs">10 Sep, 2024</p>
                 </Link>
               </li>
               <li>

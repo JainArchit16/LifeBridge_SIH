@@ -59,7 +59,7 @@ export const Testimonials: React.FC = () => {
   }, []);
 
   return (
-    <div className="text-white w-[80%] mx-auto">
+    <div className="text-white w-[80%] mx-auto" id="testimonials">
       <div className="my-[50px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
           slidesPerView={3}

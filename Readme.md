@@ -22,3 +22,35 @@
 - **Video Demonstration:** [Watch Video](https://youtu.be/9iSt22niBVo)
 - **Live Deployment:** [View Deployment](https://life-bridge-sih.vercel.app/)
 - **Source Code:** [GitHub Repository](https://github.com/JainArchit16/LifeBridge_SIH)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/JainArchit16/LifeBridge_SIH
+   cd LifeBridge_SIH
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm i
+   ```
+
+3. Start the server:
+
+   ```bash
+   cd ML_BACKEND
+   pip install -r requirements.txt
+   uvicorn app:app --reload
+   ```
+
+4. Run the application on browser
+
+   Open Another terminal to run
+
+   ```bash
+   cd LifeBridge_SIH
+   npm run dev
+   ```

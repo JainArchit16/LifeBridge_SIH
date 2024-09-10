@@ -75,7 +75,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # Replace with your front-end's origin
-    allow_origins=["*"],
+    allow_origins=["https://life-bridge-sih.vercel.app",
+                   "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers

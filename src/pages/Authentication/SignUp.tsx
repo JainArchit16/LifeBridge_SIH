@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
         Name: Name,
         email: email,
         phoneNumber: null,
-        dateofBirth: null,
+        dateOfBirth: null,
         city: null,
         organNeeded: null,
         bloodType: null,

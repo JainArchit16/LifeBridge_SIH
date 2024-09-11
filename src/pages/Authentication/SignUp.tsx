@@ -69,11 +69,11 @@ const SignUp: React.FC = () => {
         Name: Name,
         email: email,
         phoneNumber: null,
-        dateOfBirth: null,
+        dateOfBirth: '1999-01-01',
         city: null,
         organNeeded: null,
         bloodType: null,
-        gender: null,
+        gender: 'male',
         medicalHistory: null,
         conditions: {
           heartAttack: false,

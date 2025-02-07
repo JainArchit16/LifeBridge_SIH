@@ -9,7 +9,7 @@
 **Team Members:**
 
 - Priyanka Suri- 2023UCD2106
-- Antrksh Arya - 2023UIC3527
+- Antriksh Arya - 2023UIC3527
 - Archit Jain- 2022UCA1865
 - Aditya Bhandari - 2022UCA1819
 - Ayush Arora - 2022UCA1822
